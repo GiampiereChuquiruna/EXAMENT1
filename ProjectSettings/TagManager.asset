@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - monedaB
+  - monedaP
+  - monedaO
   layers:
   - Default
   - TransparentFX

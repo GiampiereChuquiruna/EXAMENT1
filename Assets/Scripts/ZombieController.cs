@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieController : MonoBehaviour
 {
-    public float vCorrer = 2, velocity = 4;
+    public float vCorrer = 2, velocity = 4, cont = 0;
     
     Rigidbody2D rb;
     Collider2D cl;
@@ -18,7 +18,16 @@ public class ZombieController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = new Vector2(-vCorrer, rb.velocity.y);
+        if(cont >= 0 ){
+           rb.velocity = new Vector2(vCorrer, rb.velocity.y);
+           cont = 5;
+        }
+        else if(cont <= 5) {
+            rb.velocity = new Vector2(-vCorrer, rb.velocity.y);
+            cont = 0;
+        }
+        
+        
 
     }
 }

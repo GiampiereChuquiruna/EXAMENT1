@@ -9,11 +9,17 @@ public class PlayerPractica : MonoBehaviour
     public GameObject bullet;
     //public Text scoreText;
     private GameMangerController gameManager;
+    public AudioClip jumClip;
+    public AudioClip bulletClip;
+    public AudioClip coin;
+
 
     Rigidbody2D rb;
     SpriteRenderer sr;
     Animator animator;
     Collider2D cl;
+    AudioSource audioSource;
+
 
 
     //const int QUIETO = 0;
@@ -37,14 +43,12 @@ public class PlayerPractica : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         cl = GetComponent<Collider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {  
-
-        rb.velocity = new Vector2(vCorrer, rb.velocity.y);
-        ChangeAnimation(CORRER);
 
        if(Input.GetKey(KeyCode.RightArrow)){
            sr.flipX = false;
@@ -99,6 +103,7 @@ public class PlayerPractica : MonoBehaviour
                ChangeAnimation(SALTAR);
                //puedeSaltar = false;
                cont--;
+               audioSource.PlayOneShot(jumClip);
         }
     }
 
@@ -117,6 +122,25 @@ public class PlayerPractica : MonoBehaviour
                 transform.position = lastCheckpointPosition;            
             }
         } 
+        if(other.gameObject.tag == "monedaB"){
+            audioSource.PlayOneShot(coin);
+            Destroy(other.gameObject);
+            gameManager.GanarBronce();
+            
+        }
+        if(other.gameObject.tag == "monedaP"){
+            audioSource.PlayOneShot(coin);
+            Destroy(other.gameObject);
+            gameManager.GanarPlata();
+            
+        }
+        if(other.gameObject.tag == "monedaO"){
+            audioSource.PlayOneShot(coin);
+            Destroy(other.gameObject);
+            gameManager.GanarOro();
+            
+        }
+
     }   
    
    void OnTriggerEnter2D(Collider2D other)
